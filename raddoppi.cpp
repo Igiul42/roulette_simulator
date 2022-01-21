@@ -2,8 +2,6 @@
 
 t_roulette cinquanta_cinquanta (t_roulette r){
 
- 	 srand (time(NULL));
-
  	int random = rand() % 36;
 	if (random % 2)
 		r.tavolo += (r.giocata * 2);
@@ -26,16 +24,22 @@ t_roulette cinquanta_cinquanta (t_roulette r){
 t_roulette random_combination_raddoppi (t_roulette r){
 	float tmp_giocata = r.giocata;
 	
- 	 srand (time(NULL));
-
- 	int random = rand() % 36;
-	if ((random < 25) && (random != 0)){
-		r.giocata = tmp_giocata;
-		r.tavolo -= r.giocata;
-		r.tavolo += (r.giocata + r.giocata/2);
+	int random = rand() % 36;
+	if (r.tavolo < r.giocata){
+		cout << "Tavolo insufficiente, caricare altri soldi! Il tavolo rimasto è " << r.tavolo << endl;
+				exit(0);
 	}
+	else if (random < 25 && (random != 0)){
+		cout << random << " Vincente!" << endl;
+		r.giocata = tmp_giocata;
+		r.vincente++;
+		r.tavolo -= r.giocata;
+		r.tavolo += (r.giocata + (r.giocata / 2));
+	}		
 	else
 	{
+		cout << random << " Perdente!" << endl;
+		r.perdente++;
 		r.tavolo -= r.giocata;
 		r = cinquanta_cinquanta(r);
 	}

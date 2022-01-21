@@ -28,6 +28,7 @@ typedef struct s_roulette {
 
 
 t_roulette soldi_su_tempo_con_raddoppi(t_roulette r);
+t_roulette soldi_su_tempo(t_roulette r);
 
 
 #endif

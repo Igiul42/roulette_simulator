@@ -1,5 +1,5 @@
 NAME =	roulette
-SRC	=	roulette.cpp raddoppi.cpp
+SRC	=	roulette.cpp raddoppi.cpp random.cpp
 OB	=	$(SRC:.cpp=.o)
 CC	=	clang++
 FLG	=	-Wall -Wextra -Werror
