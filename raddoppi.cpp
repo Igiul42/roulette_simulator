@@ -1,12 +1,18 @@
 #include "roulette.hpp"
 
 t_roulette cinquanta_cinquanta (t_roulette r){
-
+	if (r.tavolo < r.giocata){
+		cout << "Tavolo insufficiente, caricare altri soldi! Il tavolo rimasto è " << r.tavolo << endl;
+		exit(0);
+	}
  	int random = rand() % 36;
-	if (random % 2)
+	if (random % 2){
+		r.tavolo -= r.giocata;
 		r.tavolo += (r.giocata * 2);
+	}
 	else
 	{
+		r.tavolo -= r.giocata;
 		r.giocata *= 2;
 		if (r.tavolo > r.giocata){
 			r.tavolo -= r.giocata;
@@ -14,7 +20,7 @@ t_roulette cinquanta_cinquanta (t_roulette r){
 			r.n_raddoppi++;
 		}
 		else{
-			cout << "Tavolo insufficiente, caricare altri soldi! Sono stati fatti " << r.n_raddoppi << " raddoppi." << endl;
+			cout << "Tavolo insufficiente, caricare altri soldi! Il tavolo rimasto è " << r.tavolo << endl;
 			exit(0);
 		}
 	}
@@ -23,7 +29,6 @@ t_roulette cinquanta_cinquanta (t_roulette r){
 
 t_roulette random_combination_raddoppi (t_roulette r){
 	float tmp_giocata = r.giocata;
-	
 	int random = rand() % 36;
 	if (r.tavolo < r.giocata){
 		cout << "Tavolo insufficiente, caricare altri soldi! Il tavolo rimasto è " << r.tavolo << endl;

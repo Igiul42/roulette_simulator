@@ -10,6 +10,8 @@
 #include <thread>
 #include <cstdlib>
 #include <unistd.h>
+#include <ctime>
+#include <cmath>
 
 
 using namespace std;
