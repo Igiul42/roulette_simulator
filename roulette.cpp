@@ -40,6 +40,7 @@ int main (int argc, char **argv) {
 	t_roulette roulette;
 	roulette = init_struct(roulette);
 	int i = 0;
+	int tmp_tavolo;
 	std::srand (std::time (0));
 	//while (1){
 		/*cout << "Inserisci 0 per il caso peggiore, 1 per combinazioni random, 2 metodo raddoppi ";
@@ -58,17 +59,20 @@ int main (int argc, char **argv) {
 			case 1:
 				{
 					roulette = fill (roulette, argv);
+					tmp_tavolo = roulette.tavolo;
 					roulette = soldi_su_tempo(roulette);
 					cout << "Il tavolo rimasto dopo " << roulette.time_4_play / 60 << " minuti vale " << roulette.tavolo << endl;
+					cout << "Hai guadagnato " << roulette.tavolo - tmp_tavolo << endl;
 					cout << "Hai vinto " << roulette.vincente << " volte e hai perso " << roulette.perdente << " volte" << endl;
 				}
 				break;
 			case 2: 
 				{
 					roulette = fill (roulette, argv);
+					tmp_tavolo = roulette.tavolo;
 					roulette = soldi_su_tempo_con_raddoppi(roulette);
 					cout << "Il tavolo rimasto dopo " << roulette.time_4_play / 60 << " minuti vale " << roulette.tavolo << endl;
-					cout << "Numero raddoppi " << roulette.n_raddoppi << endl;
+					cout << "Hai guadagnato " << roulette.tavolo - tmp_tavolo << endl;
 					cout << "Hai vinto " << roulette.vincente << " volte e hai perso " << roulette.perdente << " volte" << endl;
 				}
 				break;
