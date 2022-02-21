@@ -9,13 +9,14 @@ t_roulette cinquanta_cinquanta (t_roulette r){
 	if (random % 2){
 		r.tavolo -= r.giocata;
 		r.tavolo += (r.giocata * 2);
+		cout << random << " Vinto dispari!" << endl;
 	}
 	else
 	{
+		cout << random << " Perso pari!" << endl;
 		r.tavolo -= r.giocata;
 		r.giocata *= 2;
 		if (r.tavolo > r.giocata){
-			r.tavolo -= r.giocata;
 			r = cinquanta_cinquanta(r);
 			r.n_raddoppi++;
 		}
@@ -47,6 +48,7 @@ t_roulette random_combination_raddoppi (t_roulette r){
 		r.perdente++;
 		r.tavolo -= r.giocata;
 		r = cinquanta_cinquanta(r);
+		r.giocata = tmp_giocata;
 	}
 		
 	return (r);
