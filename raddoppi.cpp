@@ -26,6 +26,7 @@ t_roulette cinquanta_cinquanta (t_roulette r){
 		else{
 			cout << "Tavolo insufficiente, caricare altri soldi! Il tavolo rimasto è " << r.tavolo << endl;
 			cout << "Numero raddoppi " << r.n_raddoppi << endl;
+			cout << "Mancano " << r.giocate*(0.45)/60 << "ore." << endl;
 			exit(0);
 		}
 	}
@@ -60,14 +61,14 @@ t_roulette random_combination_raddoppi (t_roulette r){
 }
 
 t_roulette soldi_su_tempo_con_raddoppi(t_roulette r){
-	int giocate = 0;
+	r.giocate = 0;
 	cout << "Inserisci quanto tempo vuoi giocare in minuti ";
 	cin >> r.time_4_play;
 	r.time_4_play *= 60;
-	giocate = r.time_4_play / 45;
-	while (giocate > 0){
+	r.giocate = r.time_4_play / 45;
+	while (r.giocate > 0){
 		r = random_combination_raddoppi (r);
-		giocate--;
+		r.giocate--;
 	}
 	return (r);	
 }

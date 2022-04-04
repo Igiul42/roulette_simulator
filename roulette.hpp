@@ -19,6 +19,7 @@ using namespace std;
 typedef struct s_roulette {
 	float tavolo;
 	float giocata;
+	float giocata_iniziale;
 	int max_doubler;
 	float time;
 	float time_4_play;
@@ -26,11 +27,13 @@ typedef struct s_roulette {
 	int n_raddoppi;
 	int vincente;
 	int perdente;
+	int giocate;
 } t_roulette;
 
 
 t_roulette soldi_su_tempo_con_raddoppi(t_roulette r);
 t_roulette soldi_su_tempo(t_roulette r);
+t_roulette dispari(t_roulette r);
 
 
 #endif

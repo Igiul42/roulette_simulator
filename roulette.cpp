@@ -2,6 +2,8 @@
 
 t_roulette init_struct (t_roulette roulette){
 	roulette.giocata = 0;
+	roulette.giocate = 0;
+	roulette.giocata_iniziale = 0;
 	roulette.tavolo = 0;
 	roulette.max_doubler = 0;
 	roulette.time_4_play = 0;
@@ -25,14 +27,18 @@ t_roulette	caso_peggiore (t_roulette roulette){
 	return (roulette);
 }
 
-t_roulette fill (t_roulette roulette, char **argv){
-	/*cout << "Inserire importo tavolo ";
-	cin >> roulette.tavolo;
-	cout << "Inserire importo giocata ";
-	cin >> roulette.giocata;*/
-	roulette.tavolo = atoi(argv[2]);
-	roulette.giocata = atof(argv[3]);
-
+t_roulette fill (t_roulette roulette, int argc, char **argv){
+	if (argc > 1){
+		roulette.tavolo = atoi(argv[2]);
+		roulette.giocata = atof(argv[3]);
+	}
+	else {
+		cout << "Inserire importo tavolo ";
+		cin >> roulette.tavolo;
+		cout << "Inserire importo giocata ";
+		cin >> roulette.giocata;
+	}
+	roulette.giocata_iniziale = roulette.giocata;
 	return (roulette);
 }
 
@@ -42,15 +48,17 @@ int main (int argc, char **argv) {
 	int i = 0;
 	int tmp_tavolo;
 	std::srand (std::time (0));
-	//while (1){
-		/*cout << "Inserisci 0 per il caso peggiore, 1 per combinazioni random, 2 metodo raddoppi ";
-		cin >> i;*/
-		i = argc;
-		i = atoi(argv[1]);
+	while (1){
+		if (argc > 1)
+			i = atoi(argv[1]);
+		else{
+			cout << "Inserisci 0 per il caso peggiore, 1 per combinazioni random, 2 metodo raddoppi, 3 per il dispari ";
+			cin >> i;
+		}
 		switch (i){
 			case 0:
 				{
-					roulette = fill (roulette, argv);
+					roulette = fill (roulette, argc, argv);
 					roulette = caso_peggiore (roulette);
 					cout << "Il tavolo rimasto è " << roulette.tavolo << " e i raddoppi sono stati " << roulette.max_doubler << endl;
 					cout << "Il tempo di gioco è stato di " << roulette.time * roulette.max_doubler / 60 << " minuti" << endl;
@@ -58,7 +66,7 @@ int main (int argc, char **argv) {
 				break;
 			case 1:
 				{
-					roulette = fill (roulette, argv);
+					roulette = fill (roulette, argc, argv);
 					tmp_tavolo = roulette.tavolo;
 					roulette = soldi_su_tempo(roulette);
 					cout << "Il tavolo rimasto dopo " << roulette.time_4_play / 60 << " minuti vale " << roulette.tavolo << endl;
@@ -68,7 +76,7 @@ int main (int argc, char **argv) {
 				break;
 			case 2: 
 				{
-					roulette = fill (roulette, argv);
+					roulette = fill (roulette, argc, argv);
 					tmp_tavolo = roulette.tavolo;
 					roulette = soldi_su_tempo_con_raddoppi(roulette);
 					cout << "Il tavolo rimasto dopo " << roulette.time_4_play / 60 << " minuti vale " << roulette.tavolo << endl;
@@ -76,11 +84,21 @@ int main (int argc, char **argv) {
 					cout << "Hai vinto " << roulette.vincente << " volte e hai perso " << roulette.perdente << " volte" << endl;
 				}
 				break;
+			case 3:
+				{
+					roulette = fill (roulette, argc, argv);
+					tmp_tavolo = roulette.tavolo;
+					roulette = dispari(roulette);
+					cout << "Il tavolo rimasto dopo " << (roulette.giocate*45) / 60 << " minuti vale " << roulette.tavolo << endl;
+	                cout << "Numero giocate totali " << roulette.giocate << " per un totale di " << (roulette.giocate * 45)/60 << " minuti." << endl;
+					cout << "Hai guadagnato " << roulette.tavolo - tmp_tavolo << endl;
+				}
+				
 			default:
 				break;
 		}
 		roulette = init_struct(roulette);
 		cout << "-------------------------------------------------------------------------------------------------" << endl;
-//	}
+	}
 	return (0);
 }
